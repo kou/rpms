@@ -7,7 +7,7 @@
 Summary: Stand-alone milter written in C that implements greylist filtering
 Name: milter-greylist
 Version: 4.2.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Daemons
 URL: http://hcpnet.free.fr/milter-greylist/
@@ -17,6 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: sendmail-devel >= 8.11
 BuildRequires: bison
+BuildRequires: libspf2-devel
 
 %description
 milter-greylist is a stand-alone milter written in C that implements the 
@@ -38,7 +39,8 @@ before the second attempt.
 
 %build
 %configure \
-  --with-user=%{user}
+  --with-user=%{user} \
+  --with-libspf2
 %{__make}
 
 %install
@@ -80,6 +82,9 @@ fi
 %attr(0600, %{user}, %{user}) %ghost %{_localstatedir}/milter-greylist/greylist.db
 
 %changelog
+* Sat May 5 2012 2012 Kouhei Sutou <kou@clear-code.com> - 4.2.7-2
+- Enable libspf2.
+
 * Sat May 5 2012 2012 Kouhei Sutou <kou@clear-code.com> - 4.2.7-1
 - Upgrade to 4.2.7.
 
